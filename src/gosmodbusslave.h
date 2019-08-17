@@ -37,8 +37,22 @@ enum class Function {
 
 class Slave {
 public:
-  Slave(uint8_t address = MODBUS_DEFAULT_UNIT_ADDRESS, int pin = MODBUS_CONTROL_PIN_NONE);
-  Slave(Stream &stream, uint8_t address = MODBUS_DEFAULT_UNIT_ADDRESS, int pin = MODBUS_CONTROL_PIN_NONE);
+  Slave(
+    const uint8_t& id = MODBUS_DEFAULT_UNIT_ADDRESS,
+    const int& pin = MODBUS_CONTROL_PIN_NONE);
+  Slave(
+    Stream &stream,
+    const uint8_t& id = MODBUS_DEFAULT_UNIT_ADDRESS,
+    const int& pin = MODBUS_CONTROL_PIN_NONE);
+  void begin(const unsigned long& baud);
+private:
+  Stream& stream_;
+  uint8_t id_;
+  uint8_t pin_;
+  int stream_buffer_length_;
+  uint16_t half_char_time_;
+  unsigned long last_time_;
+  uint16_t request_length_;
 };
 
 }
